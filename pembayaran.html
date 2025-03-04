@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran - JooCloud</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Pembayaran</h1>
+    </header>
+
+    <div class="pembayaran-container">
+        <h2 id="produk-nama"></h2>
+        <p id="produk-harga"></p>
+        
+        <button onclick="bayar('qris')">Bayar dengan QRIS</button>
+        <button onclick="bayar('dana')">Bayar dengan Dana</button>
+        <button onclick="bayar('gopay')">Bayar dengan GoPay</button>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById("produk-nama").innerText = "Produk: " + params.get("produk");
+        document.getElementById("produk-harga").innerText = "Harga: " + params.get("harga") + " IDR";
+
+        function bayar(metode) {
+            alert("Silakan transfer ke " + metode.toUpperCase());
+        }
+    </script>
+</body>
+</html>
