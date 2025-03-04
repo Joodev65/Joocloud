@@ -3,31 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pembayaran - JooCloud</title>
+    <title>Pembayaran</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Pembayaran</h1>
-    </header>
 
-    <div class="pembayaran-container">
-        <h2 id="produk-nama"></h2>
-        <p id="produk-harga"></p>
-        
-        <button onclick="bayar('qris')">Bayar dengan QRIS</button>
-        <button onclick="bayar('dana')">Bayar dengan Dana</button>
-        <button onclick="bayar('gopay')">Bayar dengan GoPay</button>
+<div class="container">
+    <div class="payment-box">
+        <h2>Pilih Metode Pembayaran</h2>
+        <br>
+        <button onclick="showQRIS()">Bayar dengan QRIS</button>
+        <button onclick="copyDana()">Bayar dengan Dana</button>
+        <button onclick="copyGoPay()">Bayar dengan GoPay</button>
+
+        <div id="qris" style="display: none;">
+            <h3>Scan QRIS</h3>
+            <img src="https://files.catbox.moe/yo9y10.jpg" alt="QRIS">
+        </div>
+
+        <p id="notif" style="color: lightgreen;"></p>
     </div>
+</div>
 
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        document.getElementById("produk-nama").innerText = "Produk: " + params.get("produk");
-        document.getElementById("produk-harga").innerText = "Harga: " + params.get("harga") + " IDR";
+<script>
+    function showQRIS() {
+        document.getElementById("qris").style.display = "block";
+    }
 
-        function bayar(metode) {
-            alert("Silakan transfer ke " + metode.toUpperCase());
-        }
-    </script>
+    function copyDana() {
+        navigator.clipboard.writeText("083822438936");
+        document.getElementById("notif").innerText = "Nomor Dana berhasil disalin!";
+    }
+
+    function copyGoPay() {
+        navigator.clipboard.writeText("083822438936");
+        document.getElementById("notif").innerText = "Nomor GoPay berhasil disalin!";
+    }
+</script>
+
 </body>
 </html>
