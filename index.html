@@ -1,49 +1,305 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JooCloud - E-Commerce Profesional</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Joozx Dev Obfuscate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    header img {
+      width: 60px;
+      border-radius: 50%;
+      margin-right: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    header img:hover {
+      transform: scale(1.1);
+    }
+
+    header h1 {
+      font-size: 36px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .container {
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .upload-container {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-btn {
+  background: rgba(40, 40, 40, 0.6);
+  backdrop-filter: blur(10px);
+  color: #e0e0e0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 28px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  margin-top: 15px;
+  width: 100%;
+  max-width: 220px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.upload-btn:hover {
+  background: rgba(60, 60, 60, 0.8);
+  transform: scale(1.03);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+}
+    .output-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .output-box {
+      width: 100%;
+      height: 200px;
+      background-color: #333;
+      color: #e0e0e0;
+      padding: 15px;
+      border-radius: 5px;
+      font-family: monospace;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+
+    .action-btns {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btns button {
+      background-color: #555;
+      color: #e0e0e0;
+      border: none;
+      padding: 12px 24px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+
+    .action-btns button:hover {
+      background-color: #777;
+    }
+
+    .section {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      border-bottom: 2px solid #fff;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .skills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .skill-btn {
+      background: transparent;
+      border: 1px solid #fff;
+      border-radius: 10px;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .skill-btn img {
+      width: 20px;
+      height: 20px;
+      filter: brightness(0) invert(1);
+    }
+
+    .skill-btn:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    .contact {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .contact-btn {
+      background: transparent;
+      border: 1px solid #fff;
+      border-radius: 8px;
+      padding: 10px 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px;
+      font-size: 16px;
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .contact-btn:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      header h1 {
+        font-size: 24px;
+      }
+
+      .upload-btn, .action-btns button {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      .output-box {
+        height: 150px;
+        font-size: 13px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<!-- Header -->
-<header class="header">
-    <img src="https://files.catbox.moe/1uw0bc.png" alt="JooCloud Logo" class="logo">
-    <h1>JooCloud</h1>
-</header>
+  <header>
+    <img src="https://files.catbox.moe/5u2wjd.jpg" alt="Logo" />
+    <h1>Joozx Dev Obfuscate</h1>
+  </header>
 
-<!-- Hero Section -->
-<section class="hero">
-    <h2>Solusi Terbaik untuk Kebutuhan Digitalmu!</h2>
-    <p>Dapatkan layanan hosting, panel bot, dan jasa pembuatan website dengan harga terbaik.</p>
-    <a href="#produk" class="btn">Lihat Produk</a>
-</section>
-
-<!-- Kategori Produk -->
-<section id="produk" class="kategori-container">
-    <h2>Kategori Produk</h2>
-    <div class="kategori">
-        <div class="kategori-box">
-            <h3>Kebutuhan Bot</h3>
-            <a href="kategori1.html">Lihat Produk</a>
-        </div>
-        <div class="kategori-box">
-            <h3>Virtual Private Server (VPS)</h3>
-            <a href="kategori2.html">Lihat Produk</a>
-        </div>
-        <div class="kategori-box">
-            <h3>Jasa Pembuatan Website</h3>
-            <a href="kategori3.html">Lihat Produk</a>
-        </div>
+  <div class="container">
+    <div class="upload-container">
+      <input type="file" id="jsFile" accept=".js" />
+      <button class="upload-btn" onclick="obfuscateFile()">Obfuscate</button>
     </div>
-</section>
 
-<!-- Footer -->
-<footer>
-    <p>&copy; 2025 JooCloud. All rights reserved.</p>
-</footer>
+    <div class="output-container">
+      <textarea id="output" class="output-box" readonly placeholder="Obfuscated JS will appear here..."></textarea>
+      <div class="action-btns">
+        <button onclick="copyToClipboard()">Copy to Clipboard</button>
+        <button onclick="downloadOutput()">Download</button>
+      </div>
+    </div>
+  </div>
 
+  <div class="section">
+    <h2 class="section-title">Sosial Media</h2>
+    <div class="skills">
+      <a class="skill-btn" href="https://www.tiktok.com/@j.oxyy?_t=ZS-8vs3jDX4f9p&_r=1" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" /> TikTok
+      </a>
+      <a class="skill-btn" href="https://github.com/Joodev65" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub" /> GitHub
+      </a>
+      <a class="skill-btn" href="https://instagram.com/joocloudid" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" /> Instagram
+      </a>
+    </div>
+  </div>
+
+  <div class="contact">
+    <h2 class="section-title">Contact Person</h2>
+    <a href="https://wa.me/6283196543913" target="_blank" class="contact-btn">WhatsApp</a>
+    <a href="https://whatsapp.com/channel/0029VbA8EL0DjiOguK9AA30X" target="_blank" class="contact-btn">Testimoni</a>
+    <a href="https://whatsapp.com/channel/0029Vb5dKXYFSAt6LMj6CR1V" target="_blank" class="contact-btn">Info & Update</a>
+    <a href="https://chat.whatsapp.com/D8snaCAdqnnEc9UKPNVGFT" target="_blank" class="contact-btn">Grup Komunitas</a>
+  </div>
+
+  <script>
+    function obfuscateFile() {
+  const fileInput = document.getElementById("jsFile");
+  const output = document.getElementById("output");
+
+  if (!fileInput.files.length) {
+    alert("Pilih file JavaScript terlebih dahulu.");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const content = e.target.result;
+    let hexEncoded = '';
+    for (let i = 0; i < content.length; i++) {
+      hexEncoded += '\\x' + content.charCodeAt(i).toString(16).padStart(2, '0');
+    }
+    output.value = `eval("${hexEncoded}");`;
+  };
+  reader.readAsText(fileInput.files[0]);
+}
+
+    function copyToClipboard() {
+      const output = document.getElementById("output");
+      output.select();
+      document.execCommand("copy");
+      alert("Copied to clipboard!");
+    }
+
+    function downloadOutput() {
+      const text = document.getElementById("output").value;
+      const blob = new Blob([text], { type: "text/javascript" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "obfuscated.js";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
 </body>
 </html>
