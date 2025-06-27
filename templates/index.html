@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Joocode Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="avatar-container">
+                    <img src="https://img1.pixhost.to/images/6755/615340015_imgtmp.jpg" alt="Avatar" class="avatar">
+                    <div class="avatar-glow"></div>
+                </div>
+                <h1 class="login-title">
+                    <i class="fas fa-shield-alt"></i>
+                    Joocode Panel
+                </h1>
+                <p class="login-subtitle">Masuk ke Control Panel</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="nama" placeholder="Nama Lengkap" required>
+                        <div class="input-underline"></div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" placeholder="Password" required>
+                        <div class="input-underline"></div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <i class="fas fa-globe input-icon"></i>
+                        <input type="text" id="ip" placeholder="IP Address" required>
+                        <div class="input-underline"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <span class="btn-text">Masuk</span>
+                    <i class="fas fa-arrow-right btn-icon"></i>
+                    <div class="btn-loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                </button>
+            </form>
+
+            <div id="errorMessage" class="error-message"></div>
+            
+            <div class="login-footer">
+                <p>&copy; 2025 Joocode Official</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <i class="toast-icon"></i>
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.querySelector('.login-btn');
+            const btnText = document.querySelector('.btn-text');
+            const btnLoading = document.querySelector('.btn-loading');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Show loading state
+            btn.classList.add('loading');
+            btnText.style.opacity = '0';
+            btnLoading.style.opacity = '1';
+            errorMessage.textContent = '';
+            
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        nama: document.getElementById('nama').value.trim(),
+                        password: document.getElementById('password').value.trim(),
+                        ip: document.getElementById('ip').value.trim()
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast('Login berhasil! Mengalihkan...', 'success');
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 1000);
+                } else {
+                    throw new Error(data.error || 'Login gagal');
+                }
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                showToast('Login gagal! Periksa data Anda.', 'error');
+            } finally {
+                // Hide loading state
+                btn.classList.remove('loading');
+                btnText.style.opacity = '1';
+                btnLoading.style.opacity = '0';
+            }
+        });
+    </script>
+</body>
+</html>
