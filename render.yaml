@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: joocode-panel
+    env: python
+    buildCommand: pip install -r pyproject.toml
+    startCommand: gunicorn main:app
+    envVars:
+      - key: SESSION_SECRET
+        value: joocode-panel-secret-key-2025
