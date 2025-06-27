@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Joocode Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dashboard-page">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="https://img1.pixhost.to/images/6755/615340015_imgtmp.jpg" alt="Logo" class="logo-img">
+                <h1 class="logo-text">Joocode Panel</h1>
+            </div>
+            
+            <div class="header-actions">
+                <div class="user-info">
+                    <span class="user-name">{{ name }}</span>
+                    <span class="user-role">{{ role }}</span>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Keluar
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h2 class="hero-title">Selamat Datang di Joocode Panel</h2>
+                    <p class="hero-subtitle typing-text" id="typingText"></p>
+                    <p class="hero-description">Digital Developer, Digital Marketplace, IT Engineering</p>
+                </div>
+                <div class="hero-image">
+                    <div class="image-glow"></div>
+                    <img src="https://img1.pixhost.to/images/6751/615257498_imgtmp.jpg" alt="Profile" class="profile-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Container -->
+        <div class="dashboard-container">
+            <!-- Sidebar Navigation -->
+            <nav class="sidebar">
+                <div class="sidebar-header">
+                    <h3>Pilih Kategori</h3>
+                </div>
+                <div class="sidebar-menu">
+                    <button class="nav-btn active" data-section="create">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Buat Panel</span>
+                    </button>
+                    <button class="nav-btn" data-section="list">
+                        <i class="fas fa-list"></i>
+                        <span>Daftar Panel</span>
+                    </button>
+                    {% if role == 'pt' %}
+                    <button class="nav-btn" data-section="create-admin">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Buat Admin</span>
+                    </button>
+                    <button class="nav-btn" data-section="list-admin">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Daftar Admin</span>
+                    </button>
+                    {% endif %}
+                </div>
+            </nav>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Create Panel Section -->
+                <section id="create" class="content-section active">
+                    <div class="section-header">
+                        <h3><i class="fas fa-plus-circle"></i> Buat Panel Baru</h3>
+                        <p>Buat panel Pterodactyl dengan mudah dan cepat</p>
+                    </div>
+                    
+                    <form id="createPanelForm" class="form-container">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="username">Username Panel</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input type="text" id="username" placeholder="Masukkan username" required>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="email">Email Panel</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-envelope input-icon"></i>
+                                    <input type="email" id="email" placeholder="Masukkan email" required>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="size">Pilih RAM</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-memory input-icon"></i>
+                                    <select id="size" required>
+                                        <option value="">Pilih ukuran RAM</option>
+                                        <option value="1gb">1GB RAM</option>
+                                        <option value="2gb">2GB RAM</option>
+                                        <option value="3gb">3GB RAM</option>
+                                        <option value="4gb">4GB RAM</option>
+                                        <option value="5gb">5GB RAM</option>
+                                        <option value="6gb">6GB RAM</option>
+                                        <option value="7gb">7GB RAM</option>
+                                        <option value="8gb">8GB RAM</option>
+                                        <option value="9gb">9GB RAM</option>
+                                        <option value="10gb">10GB RAM</option>
+                                        <option value="unlimited">Unlimited RAM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">Buat Panel Sekarang</span>
+                            <i class="fas fa-rocket btn-icon"></i>
+                            <div class="btn-loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                        </button>
+                    </form>
+
+                    <div id="createResult" class="result-container"></div>
+                </section>
+
+                <!-- List Panel Section -->
+                <section id="list" class="content-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-list"></i> Daftar Panel Aktif</h3>
+                        <p>Kelola dan monitor panel yang sudah dibuat</p>
+                    </div>
+                    
+                    <div class="list-container">
+                        <div id="serverList" class="list-content">
+                            <div class="loading-spinner">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <span>Memuat data...</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Create Admin Section -->
+                {% if role == 'pt' %}
+                <section id="create-admin" class="content-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-user-shield"></i> Buat Admin Baru</h3>
+                        <p>Tambahkan administrator untuk mengelola panel</p>
+                    </div>
+                    
+                    <form id="createAdminForm" class="form-container">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="adminUsername">Username Admin</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user-shield input-icon"></i>
+                                    <input type="text" id="adminUsername" placeholder="Masukkan username admin" required>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="adminEmail">Email Admin</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-envelope input-icon"></i>
+                                    <input type="email" id="adminEmail" placeholder="Masukkan email admin" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">Buat Admin</span>
+                            <i class="fas fa-user-plus btn-icon"></i>
+                            <div class="btn-loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                        </button>
+                    </form>
+
+                    <div id="adminResult" class="result-container"></div>
+                </section>
+
+                <!-- List Admin Section -->
+                <section id="list-admin" class="content-section">
+                    <div class="section-header">
+                        <h3><i class="fas fa-users-cog"></i> Daftar Admin</h3>
+                        <p>Kelola administrator panel</p>
+                    </div>
+                    
+                    <div class="list-container">
+                        <div id="adminList" class="list-content">
+                            <div class="loading-spinner">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <span>Memuat data...</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <i class="toast-icon"></i>
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Toggle -->
+    <button class="mobile-nav-toggle" id="mobileNavToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Initialize dashboard functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+            startTypingAnimation();
+            
+            // Load initial data
+            loadServers();
+            {% if role == 'pt' %}
+            loadAdmins();
+            {% endif %}
+        });
+    </script>
+</body>
+</html>
