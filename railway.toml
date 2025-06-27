@@ -1,0 +1,8 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "gunicorn main:app --bind 0.0.0.0:$PORT"
+
+[env]
+SESSION_SECRET = "joocode-panel-secret-key-2025"
